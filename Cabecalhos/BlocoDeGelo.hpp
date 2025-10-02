@@ -22,6 +22,9 @@ private:
     // Tipo do bloco
     char tipo;
 
+    // largura
+    unsigned largura;
+
     // Textura
     sf::Texture texture;
     sf::Sprite sprite;
@@ -48,18 +51,22 @@ BlocoDeGelo :: BlocoDeGelo(unsigned pos_x, unsigned pos_y, bool direction, char 
     case 'A':
         dir = sf::IntRect({0, 0}, {static_cast<int>(MAPA_LARGURA), 32});
         velocidade = 0 * VELOCIDADE_COMUM;
+        largura = static_cast<unsigned>(MAPA_LARGURA);
         break;
     case 'B':
         dir = sf::IntRect({0, 0}, {32, 32});
         velocidade = 3 * VELOCIDADE_COMUM;
+        largura = 32;
         break;
     case 'C':
         dir = sf::IntRect({0, 0}, {64, 32});
         velocidade = 2 * VELOCIDADE_COMUM;
+        largura = 64;
         break;
     case 'D':
         dir = sf::IntRect({0, 0}, {128, 32});
         velocidade = 1 * VELOCIDADE_COMUM;
+        largura = 128;
         break;
     default:
         break;
@@ -75,17 +82,18 @@ BlocoDeGelo :: BlocoDeGelo(unsigned pos_x, unsigned pos_y, bool direction, char 
     sprite.setTextureRect(dir); // Primeiro argumento é a posicao, o segundo o tamanho
     sprite.setOrigin({0,0});
     sprite.setPosition({X,Y});
-    sprite.setColor(sf::Color(0x6495EDFF));
+    sprite.setColor(sf::Color(sf::Color::White));
 }
 void BlocoDeGelo::atualizarPosicao()
 {
     X += velocidade;
 
     // Se sair pela direita
-    if (X >= MAPA_LARGURA) {
-        X = MAPA_LARGURA;
+    if (X >= MAPA_LARGURA - largura) {
+        X = MAPA_LARGURA - largura;
         velocidade = -velocidade;
     }
+
     // Se sair pela esquerda
     else if (X < 0) {
         X = 0;

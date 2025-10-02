@@ -9,8 +9,10 @@ int main() {
 	sf::RenderWindow* window = new sf::RenderWindow(sf::VideoMode({MAPA_LARGURA,MAPA_ALTURA}), "Pinguim_Pinguim");
 	window->setFramerateLimit(60);
 
+	unsigned int level_nivel = 0;
+
     Pinguim p;
-    OrganizadorObstaculos OrgObs(0);
+    OrganizadorObstaculos OrgObs(level_nivel);
     // Loop principal
 	while (window->isOpen()) {
 
@@ -31,6 +33,15 @@ int main() {
         
         p.handleInput();
         OrgObs.atualizarPosicao(p);
+
+		// Verifica se passou de fase
+		if(p.get_eixo_y() <= 0){
+			// incrementa a fase
+			level_nivel++;
+			OrgObs.generate_level(level_nivel);
+			p.reset_ping_pos();
+		}
+
 
 		//Render
 		window->clear(sf::Color(0, 0, 148)); // Azul

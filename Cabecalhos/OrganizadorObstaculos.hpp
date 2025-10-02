@@ -1,4 +1,5 @@
 #include <array>
+#include <bits/stdc++.h>
 #include <cmath>
 #include <SFML/Graphics.hpp>
 
@@ -15,15 +16,16 @@
 class OrganizadorObstaculos
 {
     std::vector<BlocoDeGelo> Obstaculos;
+	std::vector<PinguimColetavel> Coletaveis;
 
 public:
 
-    OrganizadorObstaculos(unsigned char i_level);
+    OrganizadorObstaculos(unsigned int i_level);
     void desenhar(sf::RenderWindow& window);
-    void generate_level(unsigned char i_level);
+    void generate_level(unsigned int i_level);
     void atualizarPosicao(Pinguim& ping);
 };
-OrganizadorObstaculos::OrganizadorObstaculos(unsigned char i_level)
+OrganizadorObstaculos::OrganizadorObstaculos(unsigned int i_level)
 {
 	generate_level(i_level);
 }
@@ -31,14 +33,15 @@ OrganizadorObstaculos::OrganizadorObstaculos(unsigned char i_level)
 void OrganizadorObstaculos::desenhar(sf::RenderWindow& window)
 {
 	for (BlocoDeGelo& bloc : Obstaculos)
-	{
 		bloc.desenhar(window);
-	}
+	for (PinguimColetavel& pC : Coletaveis)
+        pC.desenhar(window);
 }
 
-void OrganizadorObstaculos::generate_level(unsigned char i_level)
+void OrganizadorObstaculos::generate_level(unsigned int i_level)
 {
 	Obstaculos.clear();
+	Coletaveis.clear();
 
 	switch (i_level)
 	{
@@ -71,11 +74,57 @@ void OrganizadorObstaculos::generate_level(unsigned char i_level)
 			Obstaculos.push_back(BlocoDeGelo(0, 15, 0, 'A'));
 			Obstaculos.push_back(BlocoDeGelo(0, 16, 0, 'A'));
 
+			// Coletaveis
+			Coletaveis.push_back(PinguimColetavel(0, 0, 'A'));
+			Coletaveis.push_back(PinguimColetavel(0, 1, 'A'));
+			Coletaveis.push_back(PinguimColetavel(2, 4, 'A'));
+			Coletaveis.push_back(PinguimColetavel(13, 13, 'A'));
+
 			// Separar isso ??
 			break;
 		}
-		default:
+		case 1:
+		{
+			Obstaculos.push_back(BlocoDeGelo(0, 0, 0, 'A'));
+			Obstaculos.push_back(BlocoDeGelo(0, 1, 0, 'A'));
+			Obstaculos.push_back(BlocoDeGelo(0, 2, 0, 'A'));
+			Obstaculos.push_back(BlocoDeGelo(0, 3, 0, 'C'));
+			Obstaculos.push_back(BlocoDeGelo(0, 4, 0, 'D'));
+			Obstaculos.push_back(BlocoDeGelo(0, 5, 0, 'A'));
+			Obstaculos.push_back(BlocoDeGelo(0, 6, 0, 'A'));
+			Obstaculos.push_back(BlocoDeGelo(0, 7, 1, 'B'));
+			Obstaculos.push_back(BlocoDeGelo(0, 8, 0, 'D'));
+			Obstaculos.push_back(BlocoDeGelo(0, 9, 0, 'C'));
+			Obstaculos.push_back(BlocoDeGelo(0, 10, 0, 'C'));
+			Obstaculos.push_back(BlocoDeGelo(0, 11, 0, 'A'));
+			Obstaculos.push_back(BlocoDeGelo(0, 12, 1, 'D'));
+			Obstaculos.push_back(BlocoDeGelo(0, 13, 0, 'A'));
+			Obstaculos.push_back(BlocoDeGelo(0, 14, 0, 'A'));
+			Obstaculos.push_back(BlocoDeGelo(0, 15, 0, 'A'));
+			Obstaculos.push_back(BlocoDeGelo(0, 16, 0, 'A'));
+
+			break;
+		}
+		default:{
+			Obstaculos.push_back(BlocoDeGelo(0, 0, 0, 'A'));
+			Obstaculos.push_back(BlocoDeGelo(0, 1, 0, 'A'));
+			Obstaculos.push_back(BlocoDeGelo(0, 2, 0, 'A'));
+			Obstaculos.push_back(BlocoDeGelo(0, 3, 0, 'A'));
+			Obstaculos.push_back(BlocoDeGelo(0, 4, 0, 'A'));
+			Obstaculos.push_back(BlocoDeGelo(0, 5, 0, 'A'));
+			Obstaculos.push_back(BlocoDeGelo(0, 6, 0, 'A'));
+			Obstaculos.push_back(BlocoDeGelo(0, 7, 0, 'A'));
+			Obstaculos.push_back(BlocoDeGelo(0, 8, 0, 'A'));
+			Obstaculos.push_back(BlocoDeGelo(0, 9, 0, 'A'));
+			Obstaculos.push_back(BlocoDeGelo(0, 10, 0, 'A'));
+			Obstaculos.push_back(BlocoDeGelo(0, 11, 0, 'A'));
+			Obstaculos.push_back(BlocoDeGelo(0, 12, 0, 'A'));
+			Obstaculos.push_back(BlocoDeGelo(0, 13, 0, 'A'));
+			Obstaculos.push_back(BlocoDeGelo(0, 14, 0, 'A'));
+			Obstaculos.push_back(BlocoDeGelo(0, 15, 0, 'A'));
+			Obstaculos.push_back(BlocoDeGelo(0, 16, 0, 'A'));
             break;
+		}
     }
 }
 /*
@@ -91,14 +140,31 @@ void OrganizadorObstaculos::generate_level(unsigned char i_level)
 void OrganizadorObstaculos::atualizarPosicao(Pinguim& ping)
 {
     for (BlocoDeGelo& bloc : Obstaculos)
-    {
         bloc.atualizarPosicao();
+
+	for (PinguimColetavel& pC : Coletaveis)
+    {
+        bool sobre_bloco_coletavel = false;
+
+        for (BlocoDeGelo& bloc : Obstaculos)
+        {
+            if (pC.get_rect().findIntersection(bloc.get_rect()))
+            {
+                pC.set_velocidade(bloc.get_velocidade());
+                sobre_bloco_coletavel = true;
+                break;
+            }
+        }
+
+        if (!sobre_bloco_coletavel)
+            pC.set_velocidade(0);
+
+        pC.handleInput(); // move o coletável de acordo com a velocidade
     }
 
     if (!ping.get_dead())
     {
         bool sobre_bloco = false;
-
         for (BlocoDeGelo& bloc : Obstaculos)
         {
             if (ping.get_rect().findIntersection(bloc.get_rect()))
@@ -109,11 +175,18 @@ void OrganizadorObstaculos::atualizarPosicao(Pinguim& ping)
                 break; // já achou um bloco embaixo, não precisa checar os outros
             }
         }
-
         if (!sobre_bloco)
         {
             // Não está sobre nenhum bloco
             ping.set_dead();
         }
+		for (size_t i = 0; i < Coletaveis.size(); i++)
+		{
+			if (Coletaveis[i].get_rect().findIntersection((ping.get_rect())))
+			{
+				Coletaveis.erase(Coletaveis.begin() + i); // apaga o índice certo
+				break;
+			}
+		}
     }
 }
