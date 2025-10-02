@@ -37,7 +37,7 @@ public:
       morto(false),
       velocidade(0)
     {
-        if (!texture.loadFromFile("Sprites/ExampleSprite.png")) {
+        if (!texture.loadFromFile("Sprites/pinguim_principal.png")) {
             std::cerr << "ERROR::COULD NOT LOAD FILE::Sprites/Bill.png" << std::endl;
         }
 

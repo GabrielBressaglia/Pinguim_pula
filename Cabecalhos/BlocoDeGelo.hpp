@@ -43,10 +43,6 @@ BlocoDeGelo :: BlocoDeGelo(unsigned pos_x, unsigned pos_y, bool direction, char 
     sprite(texture),
     tipo(type)
 {
-    if (!texture.loadFromFile("Sprites/FAZER.png")) {
-            std::cerr << "ERROR::COULD NOT LOAD FILE::Sprites/Bill.png" << std::endl;
-    }
-
     switch (type)
     {
     case 'A':
@@ -104,9 +100,30 @@ void BlocoDeGelo::atualizarPosicao()
 // V
 void BlocoDeGelo :: desenhar(sf::RenderWindow& window) 
 {
-
-    if (!texture.loadFromFile("Sprites/RefazerGELO_MADEIRA.png")) {
+    switch (tipo)
+    {
+    case 'A':
+        if (!texture.loadFromFile("Sprites/gelo 0.png")) {
             std::cerr << "ERROR::COULD NOT LOAD FILE::Sprites/Bill.png" << std::endl;
+         }
+        break;
+    case 'B':
+        if (!texture.loadFromFile("Sprites/gelo 1.png")) {
+            std::cerr << "ERROR::COULD NOT LOAD FILE::Sprites/Bill.png" << std::endl;
+        }
+        break;
+    case 'C':
+        if (!texture.loadFromFile("Sprites/gelo 2.png")) {
+            std::cerr << "ERROR::COULD NOT LOAD FILE::Sprites/Bill.png" << std::endl;
+        }
+        break;
+    case 'D':
+        if (!texture.loadFromFile("Sprites/gelo 3.png")) {
+            std::cerr << "ERROR::COULD NOT LOAD FILE::Sprites/Bill.png" << std::endl;
+        }
+        break;
+    default:
+        break;
     }
     sf::Sprite fake (texture);
     
