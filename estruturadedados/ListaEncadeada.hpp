@@ -146,4 +146,14 @@ class ListaEncadeada{
             }
             return false;
         }
+        void deleta() {
+            Node* atual = cabeca;
+            while (atual != nullptr) {
+                Node* temp = atual;
+                atual = atual->getProximo();
+                delete temp;
+            }
+            cabeca = nullptr;
+            final = nullptr;
+        }
     };

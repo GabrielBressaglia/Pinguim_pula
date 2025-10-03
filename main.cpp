@@ -49,6 +49,7 @@ int main() {
 		if(p.get_dead() == 1){
 			level_nivel = 0;
 			OrgObs.generate_level(level_nivel);
+			list.deleta();
 		}
 
 

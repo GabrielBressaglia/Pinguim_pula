@@ -201,6 +201,11 @@ public:
                 std::cerr << "ERROR::COULD NOT LOAD FILE::" << caminho << std::endl;
             }
             break;
+        case 'G':
+            if (!texture.loadFromFile("Sprites/pinguim_G.png")) {
+                std::cerr << "ERROR::COULD NOT LOAD FILE::" << caminho << std::endl;
+            }
+            break;
         default:
             break;
     }

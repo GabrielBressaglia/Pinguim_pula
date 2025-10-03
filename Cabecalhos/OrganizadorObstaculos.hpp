@@ -53,22 +53,22 @@ void OrganizadorObstaculos::generate_level(unsigned int i_level)
 		Mesmo assim, aqui é possível desenhar cada fase.
 		Também simplifica a lógica de cair na água
 		*/
+
+		// DA PONTA DE CIMA PARA A PONTA DE BAIXO
+
+		// FASE 1
 		case 0:
 		{
-			/*
-				Criar outros penguins aqui:
-				Criar uma outra classe para eles e colocar eles com a mesma lógica que meu pinguim normal
-			*/
 			Obstaculos.push_back(BlocoDeGelo(0, 0, 0, 'A'));
-			Obstaculos.push_back(BlocoDeGelo(0, 1, 1, 'B'));
+			Obstaculos.push_back(BlocoDeGelo(0, 1, 1, 'A'));
 			Obstaculos.push_back(BlocoDeGelo(6, 2, 0, 'C'));
 			Obstaculos.push_back(BlocoDeGelo(0, 3, 0, 'C'));
-			Obstaculos.push_back(BlocoDeGelo(0, 4, 1, 'D'));
+			Obstaculos.push_back(BlocoDeGelo(10, 4, 1, 'D'));
 			Obstaculos.push_back(BlocoDeGelo(0, 5, 0, 'A'));
 			Obstaculos.push_back(BlocoDeGelo(0, 6, 0, 'A'));
 			Obstaculos.push_back(BlocoDeGelo(8, 7, 1, 'B'));
 			Obstaculos.push_back(BlocoDeGelo(0, 8, 0, 'D'));
-			Obstaculos.push_back(BlocoDeGelo(0, 9, 0, 'C'));
+			Obstaculos.push_back(BlocoDeGelo(5, 9, 1, 'C'));
 			Obstaculos.push_back(BlocoDeGelo(0, 10, 0, 'C'));
 			Obstaculos.push_back(BlocoDeGelo(0, 11, 0, 'A'));
 			Obstaculos.push_back(BlocoDeGelo(7, 12, 1, 'D'));
@@ -78,39 +78,91 @@ void OrganizadorObstaculos::generate_level(unsigned int i_level)
 			Obstaculos.push_back(BlocoDeGelo(0, 16, 0, 'A'));
 
 			// Coletaveis
-			Coletaveis.push_back(PinguimColetavel(0, 1, 'C'));
 			Coletaveis.push_back(PinguimColetavel(8, 12, 'B'));
 			Coletaveis.push_back(PinguimColetavel(0, 8, 'A'));
-
-			// Separar isso ??
 			break;
 		}
+		// FASE 2
 		case 1:
 		{
 			Obstaculos.push_back(BlocoDeGelo(0, 0, 0, 'A'));
 			Obstaculos.push_back(BlocoDeGelo(0, 1, 0, 'A'));
-			Obstaculos.push_back(BlocoDeGelo(0, 2, 0, 'A'));
+			Obstaculos.push_back(BlocoDeGelo(9, 2, 1, 'B'));
 			Obstaculos.push_back(BlocoDeGelo(0, 3, 0, 'C'));
 			Obstaculos.push_back(BlocoDeGelo(0, 4, 0, 'D'));
-			Obstaculos.push_back(BlocoDeGelo(0, 5, 0, 'A'));
+			Obstaculos.push_back(BlocoDeGelo(0, 5, 0, 'D'));
 			Obstaculos.push_back(BlocoDeGelo(0, 6, 0, 'A'));
 			Obstaculos.push_back(BlocoDeGelo(0, 7, 1, 'B'));
 			Obstaculos.push_back(BlocoDeGelo(0, 8, 0, 'D'));
 			Obstaculos.push_back(BlocoDeGelo(0, 9, 0, 'C'));
 			Obstaculos.push_back(BlocoDeGelo(0, 10, 0, 'C'));
 			Obstaculos.push_back(BlocoDeGelo(0, 11, 0, 'A'));
-			Obstaculos.push_back(BlocoDeGelo(0, 12, 1, 'D'));
+			Obstaculos.push_back(BlocoDeGelo(0, 12, 0, 'D'));
+			Obstaculos.push_back(BlocoDeGelo(12, 13, 1, 'D'));
+			Obstaculos.push_back(BlocoDeGelo(3, 14, 0, 'C'));
+			Obstaculos.push_back(BlocoDeGelo(0, 15, 0, 'A'));
+			Obstaculos.push_back(BlocoDeGelo(0, 16, 0, 'A'));
+
+			// Coletaveis
+			Coletaveis.push_back(PinguimColetavel(2, 5, 'E'));
+			Coletaveis.push_back(PinguimColetavel(0, 10, 'D'));
+
+			break;
+		}
+		// FASE 3
+		case 2:
+		{
+			Obstaculos.push_back(BlocoDeGelo(0, 0, 0, 'A'));
+			Obstaculos.push_back(BlocoDeGelo(0, 1, 0, 'A'));
+			Obstaculos.push_back(BlocoDeGelo(9, 2, 1, 'B'));
+			Obstaculos.push_back(BlocoDeGelo(0, 3, 0, 'C'));
+			Obstaculos.push_back(BlocoDeGelo(0, 4, 0, 'D'));
+			Obstaculos.push_back(BlocoDeGelo(7, 5, 0, 'D'));
+			Obstaculos.push_back(BlocoDeGelo(11, 6, 1, 'D'));
+			Obstaculos.push_back(BlocoDeGelo(0, 7, 1, 'B'));
+			Obstaculos.push_back(BlocoDeGelo(0, 8, 0, 'D'));
+			Obstaculos.push_back(BlocoDeGelo(0, 9, 0, 'C'));
+			Obstaculos.push_back(BlocoDeGelo(4, 10, 0, 'C'));
+			Obstaculos.push_back(BlocoDeGelo(5, 11, 1, 'C'));
+			Obstaculos.push_back(BlocoDeGelo(0, 12, 0, 'D'));
+			Obstaculos.push_back(BlocoDeGelo(12, 13, 1, 'D'));
+			Obstaculos.push_back(BlocoDeGelo(3, 14, 0, 'C'));
+			Obstaculos.push_back(BlocoDeGelo(0, 15, 0, 'A'));
+			Obstaculos.push_back(BlocoDeGelo(0, 16, 0, 'A'));
+
+			// Coletaveis
+			Coletaveis.push_back(PinguimColetavel(0, 3, 'C'));
+			Coletaveis.push_back(PinguimColetavel(4, 10, 'F'));
+
+			break;
+		}
+		// FASE 4
+		case 3:
+		{
+			Obstaculos.push_back(BlocoDeGelo(0, 0, 0, 'A'));
+			Obstaculos.push_back(BlocoDeGelo(0, 1, 0, 'A'));
+			Obstaculos.push_back(BlocoDeGelo(0, 2, 0, 'A'));
+			Obstaculos.push_back(BlocoDeGelo(0, 3, 0, 'A'));
+			Obstaculos.push_back(BlocoDeGelo(0, 4, 0, 'A'));
+			Obstaculos.push_back(BlocoDeGelo(0, 5, 0, 'A'));
+			Obstaculos.push_back(BlocoDeGelo(0, 6, 0, 'A'));
+			Obstaculos.push_back(BlocoDeGelo(0, 7, 0, 'A'));
+			Obstaculos.push_back(BlocoDeGelo(0, 8, 0, 'A'));
+			Obstaculos.push_back(BlocoDeGelo(0, 9, 0, 'A'));
+			Obstaculos.push_back(BlocoDeGelo(0, 10, 0, 'A'));
+			Obstaculos.push_back(BlocoDeGelo(0, 11, 0, 'A'));
+			Obstaculos.push_back(BlocoDeGelo(0, 12, 0, 'A'));
 			Obstaculos.push_back(BlocoDeGelo(0, 13, 0, 'A'));
 			Obstaculos.push_back(BlocoDeGelo(0, 14, 0, 'A'));
 			Obstaculos.push_back(BlocoDeGelo(0, 15, 0, 'A'));
 			Obstaculos.push_back(BlocoDeGelo(0, 16, 0, 'A'));
 
 			// Coletaveis
-			Coletaveis.push_back(PinguimColetavel(0, 14, 'E'));
-			Coletaveis.push_back(PinguimColetavel(2, 4, 'D'));;
+			Coletaveis.push_back(PinguimColetavel(4, 10, 'G'));
 
 			break;
 		}
+		// DEFAULT
 		default:{
 			Obstaculos.push_back(BlocoDeGelo(0, 0, 0, 'A'));
 			Obstaculos.push_back(BlocoDeGelo(0, 1, 0, 'A'));

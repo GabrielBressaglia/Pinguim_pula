@@ -140,7 +140,9 @@ void BlocoDeGelo :: desenhar(sf::RenderWindow& window)
     window.draw(fake);
 }
 
-// size é temp, precisa decidir o tamanho de cada um dps
+// A subtracao eh feita com a finalidade do pinguim nao ficar em uma posicao muito alem do bloco
+// Isso eh uma implicacao entre o movimento int do pinguim e float do bloco de gelo
+// Juntamento com o fato dessa funcao retornar um valor floar
 sf::FloatRect BlocoDeGelo::get_rect() const
 {
     if (tipo == 'A')
@@ -155,29 +157,29 @@ sf::FloatRect BlocoDeGelo::get_rect() const
     {
         return sf::FloatRect(
             sf::Vector2f(X, Y),
-            sf::Vector2f(32.f, 32.f)
+            sf::Vector2f(32 - 16, 32)
         );
     }
     else if (tipo == 'C')
     {
         return sf::FloatRect(
             sf::Vector2f(X, Y),
-            sf::Vector2f(64.f, 32.f)
+            sf::Vector2f(64 - 16, 32)
         );
     }
     else if (tipo == 'D')
     {
         return sf::FloatRect(
             sf::Vector2f(X, Y),
-            sf::Vector2f(128.f, 32.f)
+            sf::Vector2f(128- 16, 32)
         );
     }
 
-    // fallback padrão (CELL_SIZE x CELL_SIZE)
+    // Caso algum erro
     return sf::FloatRect(
-        sf::Vector2f(X, Y),
-        sf::Vector2f(CELL_SIZE, CELL_SIZE)
-    );
+            sf::Vector2f(X, Y),
+            sf::Vector2f(CELL_SIZE - 12, CELL_SIZE)
+        );
 }
 
 float BlocoDeGelo :: get_velocidade()

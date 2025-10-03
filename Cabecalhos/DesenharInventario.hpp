@@ -43,10 +43,10 @@ void Desenhar_inventario(sf::RenderWindow& window, ListaEncadeada& lista)
         std::cerr << "Erro ao carregar pinguim_E\n";
 
     if (!texturas[5].loadFromFile("Sprites/pinguim_F.png"))
-        std::cerr << "Erro ao carregar pinguim_E\n";
+        std::cerr << "Erro ao carregar pinguim_F\n";
 
     if (!texturas[6].loadFromFile("Sprites/pinguim_G.png"))
-        std::cerr << "Erro ao carregar pinguim_E\n";
+        std::cerr << "Erro ao carregar pinguim_G\n";
     
     std::vector<char> tipos = {'A','B', 'C', 'D', 'E', 'F', 'G'}; 
 
