@@ -34,7 +34,7 @@ private:
 public:
     Pinguim()
     : X(MAPA_LARGURA / 2.f),
-      Y(MAPA_ALTURA - 1 * CELL_SIZE),
+      Y(MAPA_ALTURA - offset_Mapa * CELL_SIZE),
       texture(),          // cria a textura
       sprite(texture),     // inicializa o sprite já ligado à textura
       control_keys{false, false, false, false},
@@ -59,7 +59,7 @@ public:
     {
         if(morto == 1){
             X = MAPA_LARGURA / 2.f;
-            Y = MAPA_ALTURA - 1 * CELL_SIZE;
+            Y = MAPA_ALTURA - offset_Mapa * CELL_SIZE;
             morto = false;
             velocidade = 0;
             return;
@@ -124,7 +124,7 @@ public:
     void reset_ping_pos()
     {
         X = MAPA_LARGURA / 2.f;
-        Y = MAPA_ALTURA - 1 * CELL_SIZE;
+        Y = MAPA_ALTURA - offset_Mapa * CELL_SIZE;
         velocidade = 0;
     }
 
@@ -174,10 +174,36 @@ public:
     }
     void desenhar(sf::RenderWindow& window) 
     {
-        if (!texture.loadFromFile("Sprites/pinguim_principal.png")) {
-            std::cerr << "ERROR::COULD NOT LOAD FILE::Sprites/Bill.png" << std::endl;
-        }
-
+        std::string caminho;
+        switch (tipo) {
+        case 'A':
+            if (!texture.loadFromFile("Sprites/pinguim_A.png")) {
+                std::cerr << "ERROR::COULD NOT LOAD FILE::" << caminho << std::endl;
+            }
+            break;
+        case 'B':
+            if (!texture.loadFromFile("Sprites/pinguim_B.png")) {
+                std::cerr << "ERROR::COULD NOT LOAD FILE::" << caminho << std::endl;
+            }
+            break;
+        case 'C':
+            if (!texture.loadFromFile("Sprites/pinguim_C.png")) {
+                std::cerr << "ERROR::COULD NOT LOAD FILE::" << caminho << std::endl;
+            }
+            break;
+        case 'D':
+            if (!texture.loadFromFile("Sprites/pinguim_D.png")) {
+                std::cerr << "ERROR::COULD NOT LOAD FILE::" << caminho << std::endl;
+            }
+            break;
+        case 'E':
+            if (!texture.loadFromFile("Sprites/pinguim_E.png")) {
+                std::cerr << "ERROR::COULD NOT LOAD FILE::" << caminho << std::endl;
+            }
+            break;
+        default:
+            break;
+    }
         sf::Sprite fake (texture);
         fake.setPosition({X,Y});
         fake.setTextureRect(sf::IntRect({0, 0}, {32, 32}));
@@ -201,5 +227,9 @@ public:
     void set_velocidade(float vel)
     {
         velocidade = vel;
+    }
+    char get_tipo_pinguim() const
+    {
+        return tipo;
     }
 };

@@ -6,6 +6,9 @@
 #include "Geral.hpp"
 #include "Pinguim.hpp"
 #include "BlocoDeGelo.hpp"
+
+#include "../estruturadedados/ListaEncadeada.hpp"
+
 /////////////////////////////////////////////////////////////////
 // Aqui é onde os osbtaculos são gerados
 // Ele usa a ckasse BlocoDeGelo para criar um vetor com os obstáculos
@@ -23,7 +26,7 @@ public:
     OrganizadorObstaculos(unsigned int i_level);
     void desenhar(sf::RenderWindow& window);
     void generate_level(unsigned int i_level);
-    void atualizarPosicao(Pinguim& ping);
+    void atualizarPosicao(Pinguim& ping, ListaEncadeada& lista);
 };
 OrganizadorObstaculos::OrganizadorObstaculos(unsigned int i_level)
 {
@@ -58,27 +61,26 @@ void OrganizadorObstaculos::generate_level(unsigned int i_level)
 			*/
 			Obstaculos.push_back(BlocoDeGelo(0, 0, 0, 'A'));
 			Obstaculos.push_back(BlocoDeGelo(0, 1, 1, 'B'));
-			Obstaculos.push_back(BlocoDeGelo(0, 2, 0, 'C'));
+			Obstaculos.push_back(BlocoDeGelo(6, 2, 0, 'C'));
 			Obstaculos.push_back(BlocoDeGelo(0, 3, 0, 'C'));
-			Obstaculos.push_back(BlocoDeGelo(0, 4, 0, 'D'));
+			Obstaculos.push_back(BlocoDeGelo(0, 4, 1, 'D'));
 			Obstaculos.push_back(BlocoDeGelo(0, 5, 0, 'A'));
 			Obstaculos.push_back(BlocoDeGelo(0, 6, 0, 'A'));
-			Obstaculos.push_back(BlocoDeGelo(0, 7, 1, 'B'));
+			Obstaculos.push_back(BlocoDeGelo(8, 7, 1, 'B'));
 			Obstaculos.push_back(BlocoDeGelo(0, 8, 0, 'D'));
 			Obstaculos.push_back(BlocoDeGelo(0, 9, 0, 'C'));
 			Obstaculos.push_back(BlocoDeGelo(0, 10, 0, 'C'));
 			Obstaculos.push_back(BlocoDeGelo(0, 11, 0, 'A'));
-			Obstaculos.push_back(BlocoDeGelo(0, 12, 1, 'D'));
+			Obstaculos.push_back(BlocoDeGelo(7, 12, 1, 'D'));
 			Obstaculos.push_back(BlocoDeGelo(0, 13, 0, 'A'));
 			Obstaculos.push_back(BlocoDeGelo(0, 14, 0, 'A'));
 			Obstaculos.push_back(BlocoDeGelo(0, 15, 0, 'A'));
 			Obstaculos.push_back(BlocoDeGelo(0, 16, 0, 'A'));
 
 			// Coletaveis
-			Coletaveis.push_back(PinguimColetavel(0, 0, 'A'));
-			Coletaveis.push_back(PinguimColetavel(0, 1, 'A'));
-			Coletaveis.push_back(PinguimColetavel(2, 4, 'A'));
-			Coletaveis.push_back(PinguimColetavel(13, 13, 'A'));
+			Coletaveis.push_back(PinguimColetavel(0, 1, 'C'));
+			Coletaveis.push_back(PinguimColetavel(8, 12, 'B'));
+			Coletaveis.push_back(PinguimColetavel(0, 8, 'A'));
 
 			// Separar isso ??
 			break;
@@ -102,6 +104,10 @@ void OrganizadorObstaculos::generate_level(unsigned int i_level)
 			Obstaculos.push_back(BlocoDeGelo(0, 14, 0, 'A'));
 			Obstaculos.push_back(BlocoDeGelo(0, 15, 0, 'A'));
 			Obstaculos.push_back(BlocoDeGelo(0, 16, 0, 'A'));
+
+			// Coletaveis
+			Coletaveis.push_back(PinguimColetavel(0, 14, 'E'));
+			Coletaveis.push_back(PinguimColetavel(2, 4, 'D'));;
 
 			break;
 		}
@@ -137,7 +143,7 @@ void OrganizadorObstaculos::generate_level(unsigned int i_level)
 		}
 	}
 */
-void OrganizadorObstaculos::atualizarPosicao(Pinguim& ping)
+void OrganizadorObstaculos::atualizarPosicao(Pinguim& ping, ListaEncadeada& lista)
 {
     for (BlocoDeGelo& bloc : Obstaculos)
         bloc.atualizarPosicao();
@@ -184,7 +190,10 @@ void OrganizadorObstaculos::atualizarPosicao(Pinguim& ping)
 		{
 			if (Coletaveis[i].get_rect().findIntersection((ping.get_rect())))
 			{
-				Coletaveis.erase(Coletaveis.begin() + i); // apaga o índice certo
+				bool ok;
+				lista.adicionarEmOrdem(Coletaveis[i], ok);
+				if(ok)
+					Coletaveis.erase(Coletaveis.begin() + i); // apaga o índice certo
 				break;
 			}
 		}

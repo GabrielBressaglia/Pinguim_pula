@@ -4,12 +4,16 @@
 #include "Cabecalhos/Geral.hpp"
 #include "Cabecalhos/Pinguim.hpp"
 #include "Cabecalhos/OrganizadorObstaculos.hpp"
+#include "Cabecalhos/DesenharInventario.hpp"
+#include "estruturadedados/ListaEncadeada.hpp"
 
 int main() {
 	sf::RenderWindow* window = new sf::RenderWindow(sf::VideoMode({MAPA_LARGURA,MAPA_ALTURA}), "Pinguim_Pinguim");
 	window->setFramerateLimit(60);
 
 	unsigned int level_nivel = 0;
+
+	ListaEncadeada list;
 
     Pinguim p;
     OrganizadorObstaculos OrgObs(level_nivel);
@@ -32,7 +36,7 @@ int main() {
 		}
         
         p.handleInput();
-        OrgObs.atualizarPosicao(p);
+        OrgObs.atualizarPosicao(p, list);
 
 		// Verifica se passou de fase
 		if(p.get_eixo_y() <= 0){
@@ -41,12 +45,18 @@ int main() {
 			OrgObs.generate_level(level_nivel);
 			p.reset_ping_pos();
 		}
+		// Caso morra, reseta o nivel
+		if(p.get_dead() == 1){
+			level_nivel = 0;
+			OrgObs.generate_level(level_nivel);
+		}
 
 
 		//Render
 		window->clear(sf::Color(0, 0, 148)); // Azul
 
 		//Drawing
+		Desenhar_inventario(*window, list);
         OrgObs.desenhar(*window);
         p.desenhar(*window);
 
