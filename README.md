@@ -18,13 +18,13 @@ Pule nos blocos de gelo sem encostar no mar, vá até os outros pinguins para sa
 all: compile link
 
 compile:  
-\tg++ -c main.cpp -I"...\include" -DSFML_STATIC
+     g++ -c main.cpp -I"...\include" -DSFML_STATIC
 
 link:  
-\tg++ main.o -o main.exe -L"...\lib" -lsfml-graphics-s -lsfml-window-s -lsfml-system-s -lopengl32 -lfreetype -lwinmm -lgdi32 -mwindows
+     g++ main.o -o main.exe -L"...\lib" -lsfml-graphics-s -lsfml-window-s -lsfml-system-s -lopengl32 -lfreetype -lwinmm -lgdi32 -mwindows
 
 clean:  
-\trm -f main.exe *.o  
+     rm -f main.exe *.o  
 ```
 
 Depois basta editar "...\include" e "...\lib" na pasta Make para o local onde o seu include e lib da biblioteca SFML 3.0.0 estão.
