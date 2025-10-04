@@ -1,3 +1,4 @@
+#pragma once
 #include <vector>
 #include <SFML/Graphics.hpp>
 
@@ -5,7 +6,7 @@
 #include "Pinguim.hpp"
 #include "BlocoDeGelo.hpp"
 
-#include "../estruturadedados/ListaEncadeada.hpp"
+#include "../Estrutura_De_Dados/ListaEncadeada.hpp"
 
 
 void Desenhar_inventario(sf::RenderWindow& window, ListaEncadeada& lista)

@@ -1,3 +1,4 @@
+#pragma once
 #include <vector>
 #include <bits/stdc++.h>
 #include <cmath>
@@ -7,7 +8,7 @@
 #include "Pinguim.hpp"
 #include "BlocoDeGelo.hpp"
 
-#include "../estruturadedados/ListaEncadeada.hpp"
+#include "../Estrutura_De_Dados/ListaEncadeada.hpp"
 
 /////////////////////////////////////////////////////////////////
 // Aqui é onde os osbtaculos são gerados

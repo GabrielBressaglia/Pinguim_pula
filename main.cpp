@@ -1,11 +1,11 @@
 #include <iostream>
 #include <SFML/Graphics.hpp>
 
-#include "Cabecalhos/Geral.hpp"
-#include "Cabecalhos/Pinguim.hpp"
-#include "Cabecalhos/OrganizadorObstaculos.hpp"
-#include "Cabecalhos/DesenharInventario.hpp"
-#include "estruturadedados/ListaEncadeada.hpp"
+#include "Unidade_Jogo/Geral.hpp"
+#include "Unidade_Jogo/Pinguim.hpp"
+#include "Unidade_Jogo/OrganizadorObstaculos.hpp"
+#include "Unidade_Jogo/DesenharInventario.hpp"
+#include "Estrutura_De_Dados/ListaEncadeada.hpp"
 
 int main() {
 	sf::RenderWindow* window = new sf::RenderWindow(sf::VideoMode({MAPA_LARGURA,MAPA_ALTURA}), "Pinguim_Pinguim");
