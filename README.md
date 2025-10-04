@@ -6,10 +6,26 @@ Pule nos blocos de gelo sem encostar no mar, vá até os outros pinguins para sa
 
 # Como jogar
 
+## Resquisitos
+
  É precisor ter:
- - Makefile (simplifica compilação)
  - SFML 3.0.0
  - g++ atualizado
+
+É recomendado usar o Makefile para simplificar a compilação e a linkagem das dependências. Para tanto basta criar um make da seguinte forma:
+
+```makefile
+all: compile link
+
+compile:  
+\tg++ -c main.cpp -I"...\include" -DSFML_STATIC
+
+link:  
+\tg++ main.o -o main.exe -L"...\lib" -lsfml-graphics-s -lsfml-window-s -lsfml-system-s -lopengl32 -lfreetype -lwinmm -lgdi32 -mwindows
+
+clean:  
+\trm -f main.exe *.o  
+```
 
 Depois basta editar "...\include" e "...\lib" na pasta Make para o local onde o seu include e lib da biblioteca SFML 3.0.0 estão.
 
@@ -22,4 +38,8 @@ Logo apos:
 .\main
 
 Uma janela com o jogo deve ser aberta. Caso isso não aconteça, é preciso abrir o arquivo .exe manualmente.
+
+## Controles e Jogabilidade
+
+O controle do Pinguim é feito com as teclas 'W', 'A', 'S', 'D'.
 
