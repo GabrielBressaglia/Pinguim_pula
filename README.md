@@ -43,3 +43,5 @@ Uma janela com o jogo deve ser aberta. Caso isso não aconteça, é preciso abri
 
 O controle do Pinguim é feito com as teclas 'W', 'A', 'S', 'D'.
 
+![Imagem Inicial Simples](./Imagens_Jogo/Inicio_Simples_1.png).
+
