@@ -35,7 +35,7 @@ int main() {
 			}
 		}
         
-        p.handleInput();
+        p.Controle_Update();
         OrgObs.atualizarPosicao(p, list);
 
 		// Verifica se passou de fase

@@ -218,7 +218,7 @@ void OrganizadorObstaculos::atualizarPosicao(Pinguim& ping, ListaEncadeada& list
         if (!sobre_bloco_coletavel)
             pC.set_velocidade(0);
 
-        pC.handleInput(); // move o coletável de acordo com a velocidade
+        pC.Controle_Update(); // move o coletável de acordo com a velocidade
     }
 
     if (!ping.get_dead())
