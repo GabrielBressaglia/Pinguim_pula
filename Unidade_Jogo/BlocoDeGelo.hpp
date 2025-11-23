@@ -7,33 +7,21 @@
 
 class BlocoDeGelo{
 private:
-    // Possui apenas duas direcoes ou positivo ou negativo
-    bool sentido;
+    bool sentido;                                   // Possui apenas duas direcoes ou positivo ou negativo
     sf::IntRect dir;
-
-    // Posicao
-    float X, Y;
-
-    // Velocidade que vai atualizar
-    float velocidade;
-
-    // Tipo do bloco
-    char tipo;
-
-    // largura
-    unsigned largura;
-
-    // Textura
+    float X, Y;                                     // Posicao
+    float velocidade;                               // Velocidade que vai atualizar
+    char tipo;                                      // Tipo do bloco
+    unsigned largura;                               // largura
     sf::Texture texture;
     sf::Sprite sprite;
 
 public:
-    BlocoDeGelo(unsigned pos_x, unsigned pos_y, bool direction, char type);
-
+    BlocoDeGelo(unsigned pos_x, unsigned pos_y, bool direction, char type);         // ctor, posso adicionar um sem arg
     void atualizarPosicao();
     void desenhar(sf::RenderWindow& window);
     sf::FloatRect get_rect() const;
-    float get_velocidade();
+    float get_velocidade() const;
 };
 
 BlocoDeGelo :: BlocoDeGelo(unsigned pos_x, unsigned pos_y, bool direction, char type) :
@@ -180,7 +168,7 @@ sf::FloatRect BlocoDeGelo::get_rect() const
         );
 }
 
-float BlocoDeGelo :: get_velocidade()
+float BlocoDeGelo :: get_velocidade() const
 {
     return velocidade;
 }
