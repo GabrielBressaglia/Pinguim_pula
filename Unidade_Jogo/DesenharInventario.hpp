@@ -11,6 +11,40 @@
 
 bool Desenhar_tela_inicial(sf::RenderWindow& window)
 {
+	// Carrega a textura do fundo
+	sf::Texture texture;
+if (!texture.loadFromFile("Sprites/gelo 0.png")) {
+        std::cerr << "error::could not load file::Sprites/bill.png" << std::endl;
+    }
+    std::vector<sf::Sprite> geloSprites;
+    for(int i = 0; i < MAPA_ALTURA / 32; i++)
+    {
+        sf::Sprite gelo(texture);
+        gelo.setPosition({0, float(i * 32)});
+        gelo.setTextureRect(sf::IntRect({0, 0}, {int(MAPA_LARGURA), 32}));
+
+        geloSprites.push_back(gelo);
+    }
+
+	// Carrega a textura do titulo
+	sf::Texture tit;
+	if (!tit.loadFromFile("Sprites/Tit.png")) {
+        std::cerr << "ERROR::COULD NOT LOAD FILE::Sprites/Bill.png" << std::endl;
+    }
+	sf::Sprite titulo (tit);
+	titulo.setPosition({0, 32});
+	titulo.setTextureRect(sf::IntRect({0, 0}, {512, 168}));
+	
+	// Carrega textura do bota
+	sf::Texture bot;
+	if (!bot.loadFromFile("Sprites/play.png")) {
+        std::cerr << "error::could not load file::Sprites/bill.png" << std::endl;
+    }
+	sf::Sprite botoo (bot);
+	botoo.setPosition({static_cast<float>(MAPA_LARGURA) / 2 - 64  , static_cast<float>(MAPA_ALTURA) / 2});
+	botoo.setTextureRect(sf::IntRect({0,0}, {128, 64}));
+
+
     // posicao da tela de inicio
     sf::RectangleShape rectangleInit;
     rectangleInit.setSize(sf::Vector2f(static_cast<float>(MAPA_LARGURA), static_cast<float>(MAPA_ALTURA) ));
@@ -20,16 +54,20 @@ bool Desenhar_tela_inicial(sf::RenderWindow& window)
     // Posicao do batao de inicio
     sf::RectangleShape playButton;
     playButton.setSize(sf::Vector2f(128, 64));
-    playButton.setFillColor(sf::Color(sf::Color::White));
+    playButton.setFillColor(sf::Color(sf::Color::Black));
     playButton.setPosition({static_cast<float>(MAPA_LARGURA) / 2 - 64  , static_cast<float>(MAPA_ALTURA) / 2});
 
-
+	// Desenha fundo preto
     window.draw(rectangleInit);
-    window.draw(playButton);
+    // Desenha layers
+	for(auto& s : geloSprites)
+        window.draw(s);
+	// Desenha titulo
+	window.draw(titulo);
+	// Desenha botao de jogar
+	window.draw(botoo);
 
-    // get the local mouse position (relative to a window)
-    sf::Vector2i localPosition = sf::Mouse::getPosition(window); // window is a sf::Window
-
+	// verifica posicao do mouse
     if(playButton.getGlobalBounds().contains(static_cast<sf::Vector2f>(sf::Mouse::getPosition(window))) && sf::Mouse::isButtonPressed(sf::Mouse::Button::Left)){
         return true;
     }
