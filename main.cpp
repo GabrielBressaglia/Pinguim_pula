@@ -70,7 +70,8 @@ int main() {
 				list.deleta();
 				fila.adicionar('I', ok);
 				if(!ok)
-					exit(1);				
+					exit(1);	
+				InicioJogo = false;			
 			}
 
 			//Render
