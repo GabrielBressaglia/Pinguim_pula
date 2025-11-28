@@ -22,6 +22,7 @@ private:
     sf::Sprite sprite;
     unsigned short vidas;                           // Quantidade de vidas
     char atualPinguim;                              // Atual textura
+    
 
 public:
     Pinguim();
