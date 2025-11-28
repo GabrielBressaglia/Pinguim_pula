@@ -79,7 +79,9 @@ int main() {
 			//Drawing
 			Desenhar_inventario(*window, list);
 			OrgObs.desenhar(*window);
-			p.desenhar(*window);
+			// Para de desenhar quando o pinguim morre
+			if(!p.get_dead())
+				p.desenhar(*window);
 
 			window->display();
 		}
