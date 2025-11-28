@@ -9,6 +9,7 @@
 #include "BlocoDeGelo.hpp"
 
 #include "../Estrutura_De_Dados/ListaEncadeada.hpp"
+#include "../Estrutura_De_Dados/FilaEncadeada.hpp"
 
 /////////////////////////////////////////////////////////////////
 // Aqui é onde os osbtaculos são gerados
@@ -27,7 +28,7 @@ public:
     OrganizadorObstaculos(unsigned int i_level);
     void desenhar(sf::RenderWindow& window);
     void generate_level(unsigned int i_level);
-    void atualizarPosicao(Pinguim& ping, ListaEncadeada& lista);
+    void atualizarPosicao(Pinguim& ping, ListaEncadeada& lista, Fila& fila);
 };
 OrganizadorObstaculos::OrganizadorObstaculos(unsigned int i_level)
 {
@@ -196,7 +197,7 @@ void OrganizadorObstaculos::generate_level(unsigned int i_level)
 		}
 	}
 */
-void OrganizadorObstaculos::atualizarPosicao(Pinguim& ping, ListaEncadeada& lista)
+void OrganizadorObstaculos::atualizarPosicao(Pinguim& ping, ListaEncadeada& lista, Fila& fila)
 {
     for (BlocoDeGelo& bloc : Obstaculos)
         bloc.atualizarPosicao();
@@ -236,16 +237,25 @@ void OrganizadorObstaculos::atualizarPosicao(Pinguim& ping, ListaEncadeada& list
         }
         if (!sobre_bloco)
         {
+			char temp;
+			bool ok;
             // Não está sobre nenhum bloco
             ping.set_dead();
+			// Remove da lista
+			fila.remover(temp, ok);
+			// decrementar vida
+
+
+			//
         }
 		for (size_t i = 0; i < Coletaveis.size(); i++)
 		{
 			if (Coletaveis[i].get_rect().findIntersection((ping.get_rect())))
 			{
-				bool ok;
-				lista.adicionarEmOrdem(Coletaveis[i], ok);
-				if(ok)
+				bool ok_lista, ok_fila;
+				lista.adicionarEmOrdem(Coletaveis[i], ok_lista);
+				fila.adicionar(Coletaveis[i].get_tipo_pinguim(), ok_fila);
+				if(ok_lista && ok_fila)
 					Coletaveis.erase(Coletaveis.begin() + i); // apaga o índice certo
 				break;
 			}

@@ -20,6 +20,8 @@ private:
     float velocidade;                               // Velocidade eixo X
     sf::Texture texture;                            // Textura
     sf::Sprite sprite;
+    unsigned short vidas;                           // Quantidade de vidas
+    char atualPinguim;                              // Atual textura
 
 public:
     Pinguim();
@@ -31,6 +33,7 @@ public:
     float get_eixo_y() const;                       // Para saber se passou de fase
     void reset_ping_pos();                          // Para resetar se passar de fase
     void set_velocidade(float vel);                 // Altera velocidade se estiver sobre bloco
+    void set_ping_type(char tipo);
 };
 Pinguim :: Pinguim()
 : X(MAPA_LARGURA / 2.f),
@@ -39,16 +42,15 @@ Pinguim :: Pinguim()
     sprite(texture),     // inicializa o sprite já ligado à textura
     control_keys{false, false, false, false},
     morto(false),
-    velocidade(0)
+    velocidade(0),
+    vidas(1)            // comeca com uma vida
 {
     if (!texture.loadFromFile("Sprites/pinguim_principal.png")) {
         std::cerr << "ERROR::COULD NOT LOAD FILE::Sprites/Bill.png" << std::endl;
     }
-
     for (int i = 0; i < 4; ++i) {
         dir[i] = sf::IntRect({32 * i, 0}, {32, 32}); // O SEGUNDO ARGUMENTO é O TAMNHO
     }
-
     direcao = dir[down];
     sprite.setTextureRect(direcao);
     sprite.setOrigin({0,0});
@@ -96,9 +98,71 @@ void Pinguim :: Controle_Update()
 }
 void Pinguim :: desenhar(sf::RenderWindow& window) 
 {
-    sprite.setPosition({X,Y});
-    sprite.setTextureRect(direcao);
-    window.draw(sprite); // agora desenha o mesmo sprite da classe
+    switch (atualPinguim) {
+    case 'A':
+    {
+        if (!texture.loadFromFile("Sprites/pinguim_A.png")) {
+            std::cerr << "ERROR::COULD NOT LOAD FILE::" << std::endl;
+        }
+    }
+        break;
+    case 'B':
+    {
+        if (!texture.loadFromFile("Sprites/pinguim_B.png")) {
+            std::cerr << "ERROR::COULD NOT LOAD FILE::" << std::endl;
+        }
+        break;
+    }
+    case 'C':
+    {
+        if (!texture.loadFromFile("Sprites/pinguim_C.png")) {
+            std::cerr << "ERROR::COULD NOT LOAD FILE::" << std::endl;
+        }
+        break;
+    }
+    case 'D':
+    {
+        if (!texture.loadFromFile("Sprites/pinguim_D.png")) {
+            std::cerr << "ERROR::COULD NOT LOAD FILE::" << std::endl;
+        }
+        break;
+    }
+    case 'E':
+    {
+        if (!texture.loadFromFile("Sprites/pinguim_E.png")) {
+            std::cerr << "ERROR::COULD NOT LOAD FILE::" << std::endl;
+        }
+        break;
+    }
+    case 'F':
+    {
+        if (!texture.loadFromFile("Sprites/pinguim_F.png")) {
+            std::cerr << "ERROR::COULD NOT LOAD FILE::" << std::endl;
+        }
+        break;
+    }
+    case 'G':
+    {
+        if (!texture.loadFromFile("Sprites/pinguim_G.png")) {
+            std::cerr << "ERROR::COULD NOT LOAD FILE::" << std::endl;
+        }
+        break;
+    }
+    case 'I':
+    {
+        if (!texture.loadFromFile("Sprites/pinguim_principal.png")) {
+            std::cerr << "ERROR::COULD NOT LOAD FILE::" << std::endl;
+        }
+        break;
+    }
+    default:
+        break;
+}
+    // Como precisa de um cont nao padrao, preciso fazer isso
+    sf::Sprite fake (texture);
+    fake.setPosition({X,Y});
+    fake.setTextureRect(direcao);
+    window.draw(fake); // agora desenha o mesmo sprite da classe
 }
 void Pinguim :: set_dead()
 {
@@ -110,9 +174,11 @@ bool Pinguim :: get_dead() const
 }
 sf::FloatRect Pinguim :: get_rect() const
 {
+    // ajusta o offset do sprite
+    unsigned ajuste_ret_ping = 12;
     return sf::FloatRect(
         sf::Vector2f(X, Y),           // posição (float)
-        sf::Vector2f(CELL_SIZE, CELL_SIZE)  // tamanho
+        sf::Vector2f(CELL_SIZE - ajuste_ret_ping, CELL_SIZE - ajuste_ret_ping)  // tamanho
     );
 }
 float Pinguim :: get_eixo_y() const
@@ -128,6 +194,10 @@ void Pinguim :: reset_ping_pos()
 void Pinguim :: set_velocidade(float vel)
 {
     velocidade = vel;
+}
+void Pinguim :: set_ping_type(char tipo)
+{
+    atualPinguim = tipo;
 }
 
 
@@ -157,15 +227,6 @@ PinguimColetavel :: PinguimColetavel(float x, float y, char type) :
     texture(),
     sprite(texture)
 {
-    if (!texture.loadFromFile("Sprites/pinguim_principal.png")) {
-        std::cerr << "ERROR::COULD NOT LOAD FILE::Sprites/Bill.png" << std::endl;
-    }
-
-    sprite.setTextureRect(sf::IntRect({0, 0}, {32, 32}));
-    sprite.setOrigin({0,0});
-    sprite.setPosition({X,Y});
-    sprite.setColor(sf::Color(0x6495EDFF));
-
 }
 void PinguimColetavel :: Controle_Update() 
 {
@@ -174,41 +235,40 @@ void PinguimColetavel :: Controle_Update()
 }
 void PinguimColetavel :: desenhar(sf::RenderWindow& window) 
 {
-    std::string caminho;
     switch (tipo) {
     case 'A':
         if (!texture.loadFromFile("Sprites/pinguim_A.png")) {
-            std::cerr << "ERROR::COULD NOT LOAD FILE::" << caminho << std::endl;
+            std::cerr << "ERROR::COULD NOT LOAD FILE::" << std::endl;
         }
         break;
     case 'B':
         if (!texture.loadFromFile("Sprites/pinguim_B.png")) {
-            std::cerr << "ERROR::COULD NOT LOAD FILE::" << caminho << std::endl;
+            std::cerr << "ERROR::COULD NOT LOAD FILE::" << std::endl;
         }
         break;
     case 'C':
         if (!texture.loadFromFile("Sprites/pinguim_C.png")) {
-            std::cerr << "ERROR::COULD NOT LOAD FILE::" << caminho << std::endl;
+            std::cerr << "ERROR::COULD NOT LOAD FILE::" << std::endl;
         }
         break;
     case 'D':
         if (!texture.loadFromFile("Sprites/pinguim_D.png")) {
-            std::cerr << "ERROR::COULD NOT LOAD FILE::" << caminho << std::endl;
+            std::cerr << "ERROR::COULD NOT LOAD FILE::" << std::endl;
         }
         break;
     case 'E':
         if (!texture.loadFromFile("Sprites/pinguim_E.png")) {
-            std::cerr << "ERROR::COULD NOT LOAD FILE::" << caminho << std::endl;
+            std::cerr << "ERROR::COULD NOT LOAD FILE::" << std::endl;
         }
         break;
     case 'F':
         if (!texture.loadFromFile("Sprites/pinguim_F.png")) {
-            std::cerr << "ERROR::COULD NOT LOAD FILE::" << caminho << std::endl;
+            std::cerr << "ERROR::COULD NOT LOAD FILE::" << std::endl;
         }
         break;
     case 'G':
         if (!texture.loadFromFile("Sprites/pinguim_G.png")) {
-            std::cerr << "ERROR::COULD NOT LOAD FILE::" << caminho << std::endl;
+            std::cerr << "ERROR::COULD NOT LOAD FILE::" << std::endl;
         }
         break;
     default:
